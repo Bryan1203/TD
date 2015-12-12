@@ -1,14 +1,195 @@
 <!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+Copyright (c) 2015 by Bryan1203 (http://jsbin.com/wabaqe/1/edit)
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Tower Defense</title>
-	<link rel="stylesheet" type="text/css" href="main.css">
-	<script src="jquery.js"></script>
+<meta name="description" content="TODO List Final Version">
+  <link href='https://fonts.googleapis.com/css?family=Alegreya:400,900' rel='stylesheet' type='text/css'>
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+body {
+  background-image: url(http://pcwallart.com/images/gradient-background-wallpaper-4.jpg);
+  background-size: cover;
+}
+.container {
+  background-color: rgba(255,255,255,0.8);
+  margin: 20px auto;
+  padding: 20px 40px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px gray;
+}
+h1 {
+  font-family: 'Alegreya', serif;
+}
+.task-input {
+  padding: 4px;
+  width: 80%;
+  height: 32px;
+  font-size: 24px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0px 0px 4px;
+  box-sizing: border-box;
+  float: left;
+}
+.task-input:focus{
+    outline: 0;
+}
+.todo-list {
+  padding-left: 0px;  
+}
+.todo-task {
+  padding: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 8px;
+  background-color: white;
+}
+.todo-task small {
+  font-size: 8px;
+  color: #aaa;
+}
+button {
+  padding: 4px;
+  border: 0px;
+  border-radius: 4px;
+}
+.delete-button {
+  color: white;
+  background-color: rgb(200, 20, 20);
+  font-size: 8px;
+  margin-left: 4px; 
+}
+.add-button {
+  color: white;
+  padding: 4px;
+  width: 20%;
+  height: 32px;
+  background-color: rgb(90, 200, 180);
+  font-size: 14px;
+  border-radius: 0px 4px 4px 0px;
+  box-sizing: border-box;
+  float: right;
+}
+.button-group {
+  float: right; 
+}
+.clear-float {
+  clear: both;
+}
+</style>
 </head>
 <body>
-
-
-	<script src="main.js"></script>
+  <div class="container">
+    <h1>TODO List</h1>
+    <input id="task-input" class="task-input" type="text" />
+    <button id="add-button" class="add-button">加入</button>
+    <div class="clear-float"></div>
+    <div>
+      <ul id="todo-list" class="todo-list" style="list-style: none">
+      </ul>
+      還有<span id="uncompleted-task-number">0</span>個事項
+      <button id="delete-completed-button">刪除已完成事項</button>
+      <hr>
+      <button id="show-completed-button">顯示已完成事項</button>
+      <button id="show-imcompleted-button">顯示未完成事項</button>
+      <button id="show-all-button">顯示所有事項</button>
+    </div>
+  </div>
+<script id="jsbin-javascript">
+updateUncompletedTaskNumber(); // #HW
+$("#add-button").on("click", addTask); // #1
+                    
+function addTask() {
+  
+  var newTask = $("#task-input").val();
+  
+  if (newTask!=="") {
+    
+    var newTaskHtmlString = createTaskHTMLString(newTask);
+    $("#todo-list").append(newTaskHtmlString);
+    
+    updateUncompletedTaskNumber();
+    clearInputField();
+  }
+}
+function createTaskHTMLString(newTask) {
+  var dateString = (new Date()).toString(); // Lesson 3 #3
+  var str = '<li class="todo-task">'+
+              '<label>'+
+                '<input class="js-task-checkbox" type="checkbox">'+
+                '<span class="js-content">'+
+                  newTask+
+                '</span>'+
+              '</label>'+
+              '<div class="button-group">'+
+                '<button class="js-edit-button">編輯</button>'+
+                '<button class="js-delete-button delete-button">刪除</button>'+
+              '</div>'+
+              '<br>'+
+              '<small>'+dateString+'</small>'+
+            '</li>';
+  return str;
+}
+function clearInputField() { // HW
+  $("#task-input").val("");
+}
+// ==== Lesson 2 ==== //
+$("body").on("click", ".js-delete-button", removeTask);// #1
+function removeTask() { // #1
+  var $target = $(this).closest("li");
+  $target.remove();
+  updateUncompletedTaskNumber(); // #HW
+}
+$("#delete-completed-button").on("click", removeCompletedTasks); // #2
+                                 
+function removeCompletedTasks(){ // #2
+  $(".js-task-checkbox:checked").closest("li").remove();
+  updateUncompletedTaskNumber(); // #HW
+}
+$("#task-input").on("keydown", keydownHandler);
+                    
+function keydownHandler(e) {
+  if(e.which===13){
+    addTask();
+  }
+}
+               
+function updateUncompletedTaskNumber () { // #HW
+  var total = $(".js-task-checkbox").length;
+  var completed = $(".js-task-checkbox:checked").length;
+  $("#uncompleted-task-number").text(total-completed);
+}
+// ==== Lesson 3 ==== //
+// #1
+function showCompleted(){
+  $(".js-task-checkbox").closest("li").hide();
+  $(".js-task-checkbox:checked").closest("li").show();
+}
+function showImcompleted(){
+  $(".js-task-checkbox").closest("li").show();
+  $(".js-task-checkbox:checked").closest("li").hide();
+}
+function showAll(){
+  $(".js-task-checkbox").closest("li").show();
+}
+$("body").on("click", "#show-completed-button", showCompleted);
+$("body").on("click", "#show-imcompleted-button", showImcompleted);
+$("body").on("click", "#show-all-button", showAll);
+// #2
+function editTask(){
+  var $task = $(this).closest("li");
+  var originTaskContent = $task.find(".js-content").text();
+  var newTask = prompt('將 "'+originTaskContent+'" 改成：');
+  $task.find(".js-content").text(newTask);
+}
+$("body").on("click", ".js-edit-button", editTask);
+</script>
 </body>
 </html>
