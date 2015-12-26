@@ -9,28 +9,17 @@ Gist
   Star 0
   Fork 0 OrangeAppleTW/JS-Tower-Defense
  Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs
-Branch: gh-pages Find file Copy pathJS-Tower-Defense/v3/main.js
-84eaf78  19 minutes ago
+Branch: gh-pages Find file Copy pathJS-Tower-Defense/v2/main.js
+84eaf78  21 minutes ago
 @kevin-shu kevin-shu c
 1 contributor
-RawBlameHistory     79 lines (67 sloc)  1.85 KB
+RawBlameHistory     58 lines (48 sloc)  1.32 KB
 var canvas = document.getElementById("game-canvas");
 var ctx = canvas.getContext("2d");
 
 var FPS = 60;
 var cursor = {};
 var isBuilding = false;
-var tower = {};
-var enemy = {
-    x:96,
-    y:480-32,
-    direction:{x:0,y:-1},
-    speed:64,
-    move: function(){
-        this.x += this.direction.x * this.speed/FPS;
-        this.y += this.direction.y * this.speed/FPS;
-    }
-};
 
 // ====== 引入圖檔 ====== //
 var bgImg = document.createElement("img");
@@ -39,8 +28,6 @@ var buttonImg = document.createElement("img");
 buttonImg.src = "images/tower-btn.png";
 var towerImg = document.createElement("img");
 towerImg.src = "images/tower.png";
-var slimeImg = document.createElement("img");
-slimeImg.src = "images/slime.gif";
 // ==================== //
 
 $("#game-canvas").mousemove(function(event) {
@@ -57,20 +44,12 @@ $("#game-canvas").click(function(){
         } else {
             isBuilding = true;
         }
-    } else if (isBuilding) {
-        tower.x = cursor.x - cursor.x%32;
-        tower.y = cursor.y - cursor.y%32;
     }
 });
 
 function draw(){
-
-    enemy.move();
-
     ctx.drawImage(bgImg,0,0);
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
-    ctx.drawImage(towerImg, tower.x, tower.y);
-    ctx.drawImage(slimeImg, enemy.x, enemy.y);
     if(isBuilding){
         ctx.drawImage(towerImg, cursor.x, cursor.y);
     }
