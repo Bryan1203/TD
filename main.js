@@ -1,19 +1,58 @@
-// 創造 img HTML 元素，並放入變數中
-var bgImg = document.createElement("img");
-
-// 設定這個元素的要顯示的圖片
-bgImg.src = "images/map.png";
-
-// 找出網頁中的 canvas 元素
 var canvas = document.getElementById("game-canvas");
-
-// 取得 2D繪圖用的物件
 var ctx = canvas.getContext("2d");
 
+var FPS = 60;
+var cursor = {};
+var isBuilding = false;
+
+// ====== 引入圖檔 ====== //
+var bgImg = document.createElement("img");
+bgImg.src = "images/map.png";
+var buttonImg = document.createElement("img");
+buttonImg.src = "images/tower-btn.png";
+var towerImg = document.createElement("img");
+towerImg.src = "images/tower.png";
+// ==================== //
+
+$("#game-canvas").mousemove(function(event) {
+    cursor = {
+        x: event.offsetX,
+        y: event.offsetY
+    };
+});
+
+$("#game-canvas").click(function(){
+    if( isCollided(cursor.x, cursor.y, 640-64, 480-64, 64, 64) ){
+        if (isBuilding) {
+            isBuilding = false;
+        } else {
+            isBuilding = true;
+        }
+    }
+});
+
 function draw(){
-	// 將背景圖片畫在 canvas 上的 (0,0) 位置
-ctx.drawImage(bgImg,0,0);
+    ctx.drawImage(bgImg,0,0);
+    ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
+    if(isBuilding){
+        ctx.drawImage(towerImg, cursor.x, cursor.y);
+    }
 }
 
-// 執行 draw 函式
-setTimeout( draw, 1000);
+setInterval(draw, 1000/FPS);
+
+
+
+// ====== 其他函式 ====== //
+
+function isCollided(pointX, pointY, targetX, targetY, targetWidth, targetHeight) {
+    if(     pointX >= targetX
+        &&  pointX <= targetX + targetWidth
+        &&  pointY >= targetY
+        &&  pointY <= targetY + targetHeight
+    ){
+        return true;
+    } else {
+        return false;
+    }
+}
