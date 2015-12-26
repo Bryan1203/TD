@@ -1,19 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @Bryan1203
- Watch 1
-  Star 0
-  Fork 0 OrangeAppleTW/JS-Tower-Defense
- Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs
-Branch: gh-pages Find file Copy pathJS-Tower-Defense/v2/main.js
-84eaf78  21 minutes ago
-@kevin-shu kevin-shu c
-1 contributor
-RawBlameHistory     58 lines (48 sloc)  1.32 KB
 var canvas = document.getElementById("game-canvas");
 var ctx = canvas.getContext("2d");
 
@@ -72,5 +56,3 @@ function isCollided(pointX, pointY, targetX, targetY, targetWidth, targetHeight)
         return false;
     }
 }
-Status API Training Shop Blog About Pricing
-© 2015 GitHub, Inc. Terms Privacy Security Contact Help
