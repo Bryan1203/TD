@@ -6,8 +6,8 @@ var cursor = {};
 var isBuilding = false;
 var tower = {};
 var enemy = {
-    x:96,
-    y:480-64,
+    x:52,
+    y:480-32,
     direction:{x:0,y:-1},
     speed:64,
     pathDes: 0,
