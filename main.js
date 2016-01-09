@@ -11,7 +11,7 @@ var enemy = {
     direction:{x:0,y:-1},
     speed:64,
     pathDes: 0,
-this.move = function(){
+    move: function(){
         if( isCollided(enemyPath[this.pathDes].x, enemyPath[this.pathDes].y, this.x, this.y, this.speed/FPS, this.speed/FPS) ){
 
             if (this.pathDes === enemyPath.length-1) {
