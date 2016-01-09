@@ -18,6 +18,7 @@ var enemy = {
                 this.hp=0;
                 hp -= 10;
             } else {
+                alert("yeah");
                 // 首先，移動到下一個路徑點
                 this.x = enemyPath[this.pathDes].x;
                 this.y = enemyPath[this.pathDes].y;
