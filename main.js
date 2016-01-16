@@ -5,13 +5,15 @@ var FPS = 60;
 var cursor = {};
 var isBuilding = false;
 var tower = {};
-var enemy = {
-    x:64,
-    y:480-32,
-    direction:{x:0,y:-1},
-    speed:64,
-    pathDes: 0,
-    move: function(){
+var enemies = [];
+
+function Enemy() { 
+    this.x = 96; 
+    this.y = 480-32;
+    this.direction = {x:0,y:-1};
+    this.speed = 64;
+    this.pathDes = 0;
+    this.move = function(){
         if( isCollided(enemyPath[this.pathDes].x, enemyPath[this.pathDes].y, this.x, this.y, this.speed/FPS, this.speed/FPS) ){
 
             // 首先，移動到下一個路徑點
@@ -32,8 +34,19 @@ var enemy = {
             // this.y += this.direction.y * this.speed/FPS;
             this.y = this.y + this.direction.y * this.speed/FPS;
         }
-    }
+    };
 }
+
+
+var enemyPath = [
+    {x:96, y:64},
+    {x:384, y:64},
+    {x:384, y:192},
+    {x:224, y:192},
+    {x:224, y:320},
+    {x:544, y:320},
+    {x:544, y:96}
+];
 
 var enemyPath = [
     {x:64, y:320},
