@@ -8,7 +8,7 @@ var tower = {};
 var enemy = new Enemy();
 
 function Enemy() { 
-    this.x = 96; 
+    this.x = 96-32; 
     this.y = 480-32;
     this.direction = {x:0,y:-1};
     this.speed = 64;
