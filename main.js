@@ -98,7 +98,7 @@ enemies.push(newEnemy);
     ctx.drawImage(bgImg,0,0);
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
-    ctx.drawImage(slimeImg, enemy.x, enemy.y);
+   // ctx.drawImage(slimeImg, enemy.x, enemy.y);
     clock++;
     if(isBuilding){
         ctx.drawImage(towerImg, cursor.x, cursor.y);
