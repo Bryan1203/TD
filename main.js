@@ -90,26 +90,23 @@ $("#game-canvas").click(function(){
 
 function draw(){
 	for(var i=0; i<enemies.length; i++){
-    enemies[i].move();
-    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
+	    enemies[i].move();
+	    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
     }
 	if ( (clock%80)==0 ) {
 		var newEnemy = new Enemy();
-	enemies.push(newEnemy);
+		enemies.push(newEnemy);
 	}
-     if(isBuilding){
-        ctx.drawImage(towerImg, cursor.x, cursor.y);
-
-    
+	
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
-   // ctx.drawImage(slimeImg, enemy.x, enemy.y);
-   ctx.drawImage(bgImg,0,0);
-    clock++;
-   
-   
-
+	// ctx.drawImage(slimeImg, enemy.x, enemy.y);
+	ctx.drawImage(bgImg,0,0);
+	
+    if(isBuilding){
+		ctx.drawImage(towerImg, cursor.x, cursor.y);
     }
+    clock++;
 }
 
 setInterval(draw, 1000/FPS);
