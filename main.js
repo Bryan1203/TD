@@ -1,11 +1,11 @@
 var canvas = document.getElementById("game-canvas");
 var ctx = canvas.getContext("2d");
-
+var clock = 0;
 var FPS = 60;
 var cursor = {};
 var isBuilding = false;
 var tower = {};
-var enemy = new Enemy();
+var enemies = []
 
 function Enemy() { 
     this.x = 96-32; 
@@ -89,15 +89,24 @@ $("#game-canvas").click(function(){
 });
 
 function draw(){
-
+if ( (clock%80)==0 ) {
+	var newEnemy = new Enemy();
+enemies.push(newEnemy);
+}
     enemy.move();
-
+    
     ctx.drawImage(bgImg,0,0);
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
     ctx.drawImage(slimeImg, enemy.x, enemy.y);
+    clock++;
     if(isBuilding){
         ctx.drawImage(towerImg, cursor.x, cursor.y);
+    for(var i=0; i<enemies.length; i++){
+    enemies[i].move();
+    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
+    }
+
     }
 }
 
