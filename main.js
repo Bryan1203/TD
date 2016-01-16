@@ -94,7 +94,10 @@ if ( (clock%80)==0 ) {
 enemies.push(newEnemy);
 }
     
-    
+     for(var i=0; i<enemies.length; i++){
+    enemies[i].move();
+    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
+    }
     ctx.drawImage(bgImg,0,0);
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
@@ -102,10 +105,7 @@ enemies.push(newEnemy);
     clock++;
     if(isBuilding){
         ctx.drawImage(towerImg, cursor.x, cursor.y);
-    for(var i=0; i<enemies.length; i++){
-    enemies[i].move();
-    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
-    }
+   
 
     }
 }
