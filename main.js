@@ -5,7 +5,7 @@ var FPS = 60;
 var cursor = {};
 var isBuilding = false;
 var tower = {};
-var enemies = [];
+var enemy = new Enemy();
 
 function Enemy() { 
     this.x = 96; 
@@ -38,15 +38,7 @@ function Enemy() {
 }
 
 
-var enemyPath = [
-    {x:96, y:64},
-    {x:384, y:64},
-    {x:384, y:192},
-    {x:224, y:192},
-    {x:224, y:320},
-    {x:544, y:320},
-    {x:544, y:96}
-];
+
 
 var enemyPath = [
     {x:64, y:320},
