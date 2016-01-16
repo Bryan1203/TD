@@ -93,7 +93,7 @@ if ( (clock%80)==0 ) {
 	var newEnemy = new Enemy();
 enemies.push(newEnemy);
 }
-    enemy.move();
+    
     
     ctx.drawImage(bgImg,0,0);
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
