@@ -97,15 +97,16 @@ function draw(){
 		var newEnemy = new Enemy();
 	enemies.push(newEnemy);
 	}
-    
+     if(isBuilding){
+        ctx.drawImage(towerImg, cursor.x, cursor.y);
 
-    ctx.drawImage(bgImg,0,0);
+    ;
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
    // ctx.drawImage(slimeImg, enemy.x, enemy.y);
+   ctx.drawImage(bgImg,0,0)
     clock++;
-    if(isBuilding){
-        ctx.drawImage(towerImg, cursor.x, cursor.y);
+   
    
 
     }
