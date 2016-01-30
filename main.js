@@ -1,6 +1,7 @@
 var canvas = document.getElementById("game-canvas");
 var ctx = canvas.getContext("2d");
 var clock = 0;
+var HP = 100;
 var FPS = 60;
 var cursor = {};
 var isBuilding = false;
@@ -101,6 +102,8 @@ function draw(){
 	
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
+    ctx.fillText( "HP:100", 100, 100 );
+
 	// ctx.drawImage(slimeImg, enemy.x, enemy.y);
 	
 	
