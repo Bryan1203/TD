@@ -6,9 +6,6 @@ var FPS = 60;
 var cursor = {};
 var isBuilding = false;
 var tower = {
-range : 96,
-aimingEnemyId : null
-};var tower = {
     range: 96,
     aimingEnemyId: null,
     searchEnemy: function(){
@@ -16,6 +13,7 @@ aimingEnemyId : null
             var distance = Math.sqrt( 
                 Math.pow(this.x-enemies[i].x,2) + Math.pow(this.y-enemies[i].y,2) 
             );
+            console.log(distance);
             if (distance<=this.range) {
                 this.aimingEnemyId = i;
                 return;
