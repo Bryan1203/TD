@@ -55,7 +55,8 @@ var enemyPath = [
     {x:512, y:192},
     {x:384, y:192},
     {x:384, y:320},
-    {x:544, y:320}
+    {x:544, y:320},
+    {x:510, y:360}
 ];
 
 // ====== 引入圖檔 ====== //
@@ -95,8 +96,12 @@ ctx.font = "24px Snap ITC";
 ctx.fillStyle = "white";
 
 function draw(){
+	
 	ctx.drawImage(bgImg,0,0);
 	for(var i=0; i<enemies.length; i++){
+	if (enemies[i].hp<=0) {
+	enemies.splice(i,1);
+	}
 	    enemies[i].move();
 	    ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
     }
