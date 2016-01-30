@@ -89,7 +89,7 @@ $("#game-canvas").click(function(){
     }
 });
 // 設定接下來印出的字體的大小及字型
-ctx.font = "24px Tw Cen MT Condensed Extra Bold";
+ctx.font = "24px Snap ITC";
 
 // 設定接下來印出的字體的顏色
 ctx.fillStyle = "white";
