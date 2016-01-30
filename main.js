@@ -88,6 +88,11 @@ $("#game-canvas").click(function(){
         tower.y = cursor.y - cursor.y%32;
     }
 });
+// 設定接下來印出的字體的大小及字型
+ctx.font = "24px Arial";
+
+// 設定接下來印出的字體的顏色
+ctx.fillStyle = "white";
 
 function draw(){
 	ctx.drawImage(bgImg,0,0);
