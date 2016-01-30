@@ -5,7 +5,27 @@ var HP = 100;
 var FPS = 60;
 var cursor = {};
 var isBuilding = false;
-var tower = {};
+var tower = {
+range : 96,
+aimingEnemyId : null
+};var tower = {
+    range: 96,
+    aimingEnemyId: null,
+    searchEnemy: function(){
+        for(var i=0; i<enemies.length; i++){
+            var distance = Math.sqrt( 
+                Math.pow(this.x-enemies[i].x,2) + Math.pow(this.y-enemies[i].y,2) 
+            );
+            if (distance<=this.range) {
+                this.aimingEnemyId = i;
+                return;
+            }
+        }
+        // 如果都沒找到，會進到這行，清除鎖定的目標
+        this.aimingEnemyId = null;
+    }
+};
+
 var enemies = []
 
 function Enemy() { 
@@ -66,6 +86,8 @@ var enemyPath = [
 ];
 
 // ====== 引入圖檔 ====== //
+var crosshairImg = document.createElement("img");
+crosshairImg.src = "images/crosshair.png";
 var bgImg = document.createElement("img");
 bgImg.src = "images/map.png";
 var buttonImg = document.createElement("img");
@@ -102,7 +124,11 @@ ctx.font = "24px Snap ITC";
 ctx.fillStyle = "white";
 
 function draw(){
-	
+	if ( tower.aimingEnemyId!=null ) {
+	  var id = tower.aimingEnemyId;
+	   ctx.drawImage( crosshairImg, enemies[id].x, enemies[id].y );
+	}
+
 	ctx.drawImage(bgImg,0,0);
 	for(var i=0; i<enemies.length; i++){
 	if (enemies[i].hp<=0) {
