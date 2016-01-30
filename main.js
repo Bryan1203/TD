@@ -133,6 +133,7 @@ function draw(){
 			ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
 		}
 	}
+	tower.searchEnemy();
 	if ( tower.aimingEnemyId!=null ) {
 	  var id = tower.aimingEnemyId;
 	   ctx.drawImage( crosshairImg, enemies[id].x, enemies[id].y );
