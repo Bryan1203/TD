@@ -107,7 +107,7 @@ function draw(){
 	
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
-    ctx.fillText( "HP:"+HP, 20, 100 );
+    ctx.fillText( "HP:"+HP, 20, 30 );
 
 	// ctx.drawImage(slimeImg, enemy.x, enemy.y);
 	
