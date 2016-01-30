@@ -37,7 +37,7 @@ function Enemy() {
 
 			if(this.pathDes==14){
 				this.hp=0;
-				hp-=10;
+				HP-=10;
 			} else {
 		
 	            // 首先，移動到下一個路徑點
