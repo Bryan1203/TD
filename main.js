@@ -8,19 +8,33 @@ var isBuilding = false;
 var tower = {
     range: 96,
     aimingEnemyId: null,
+    fireRate: 1, // 1秒發射一次
+    readyToShootTime: 1, // 還有幾秒就發射
     searchEnemy: function(){
+        // 減少距離下個射擊的冷卻時間
+        this.readyToShootTime -= 1/FPS;
         for(var i=0; i<enemies.length; i++){
             var distance = Math.sqrt( 
                 Math.pow(this.x-enemies[i].x,2) + Math.pow(this.y-enemies[i].y,2) 
             );
             if (distance<=this.range) {
                 this.aimingEnemyId = i;
+                // 判斷是否倒數完畢
+                if (this.readyToShootTime<=0) {
+                    this.shoot();
+                    this.readyToShootTime = this.fireRate;
+                }
                 return;
             }
         }
         // 如果都沒找到，會進到這行，清除鎖定的目標
         this.aimingEnemyId = null;
+    }, 
+    shoot: function(){
+        var newCannonball = new Cannonball(this);
+        cannonballs.push( newCannonball );
     }
+
 };
 
 var enemies = []
@@ -61,6 +75,20 @@ function Enemy() {
     };
 }
 
+var cannonballs=[];
+
+function Cannonball () {
+    this.speed = 320;
+    this.damage = 5;
+    var aimedEnemy = enemies[tower.aimingEnemyId];
+    this.x = tower.x+16;
+    this.y = tower.y;
+    this.direction = getUnitVector(this.x, this.y, aimedEnemy.x, aimedEnemy.y);
+	this.move = function(){
+		this.x += this.direction.x*this.speed/FPS;
+		this.y += this.direction.y*this.speed/FPS;
+	}
+}
 
 
 
@@ -93,6 +121,8 @@ var towerImg = document.createElement("img");
 towerImg.src = "images/tower.png";
 var slimeImg = document.createElement("img");
 slimeImg.src = "images/slime.gif";
+var cannonballImg = document.createElement("img");
+cannonballImg.src = "images/cannon-ball.png";
 // ==================== //
 
 $("#game-canvas").mousemove(function(event) {
@@ -141,6 +171,14 @@ function draw(){
 		var newEnemy = new Enemy();
 		enemies.push(newEnemy);
 	}
+	
+	for(var i=0; i<cannonballs.length; i++){
+		cannonballs[i].move();
+		ctx.drawImage( 
+			cannonballImage,cannonballs[i].x,cannonballs[i].y 
+		);
+	}
+
 	
     ctx.drawImage(buttonImg, 640-64, 480-64, 64, 64);
     ctx.drawImage(towerImg, tower.x, tower.y);
