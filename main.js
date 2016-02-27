@@ -5,8 +5,9 @@ var HP = 100;
 var cannonBalls = [];
 var FPS = 60;
 var cursor = {};
+var towers = [];
 var isBuilding = false;
-var tower = {
+function Tower(x, y) {
     this.x = x;
     this.y = y;
     this.range = 96;
