@@ -175,7 +175,7 @@ function draw(){
 	for(var i=0; i<cannonballs.length; i++){
 		cannonballs[i].move();
 		ctx.drawImage( 
-			cannonballImage,cannonballs[i].x,cannonballs[i].y 
+			cannonballImg,cannonballs[i].x,cannonballs[i].y 
 		);
 	}
 
