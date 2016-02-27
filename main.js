@@ -2,38 +2,25 @@ var canvas = document.getElementById("game-canvas");
 var ctx = canvas.getContext("2d");
 var clock = 0;
 var HP = 100;
-var cannonBalls = [];
 var FPS = 60;
 var cursor = {};
-var towers = [];
 var isBuilding = false;
-function Tower(x, y) {
-    this.x = x;
-    this.y = y;
-    this.range = 96;
-    this.fireRate = 1;
-    this.readyToShootTime = 1;
-    this.searchEnemy = function(){
+var tower = {
+    range: 96,
+    aimingEnemyId: null,
+    searchEnemy: function(){
         for(var i=0; i<enemies.length; i++){
-            var distance = Math.sqrt( Math.pow(this.x-enemies[i].x,2) + Math.pow(this.y-enemies[i].y,2) );
+            var distance = Math.sqrt( 
+                Math.pow(this.x-enemies[i].x,2) + Math.pow(this.y-enemies[i].y,2) 
+            );
             if (distance<=this.range) {
                 this.aimingEnemyId = i;
-                if(this.readyToShootTime<=0){
-                    this.shoot();
-                    this.readyToShootTime = this.fireRate;
-                } else {
-                    this.readyToShootTime -= 1/FPS
-                }
                 return;
             }
         }
         // 如果都沒找到，會進到這行，清除鎖定的目標
         this.aimingEnemyId = null;
-    };
-    this.shoot = function(){
-        var newConnonball = new Connonball(this);
-        cannonBalls.push(newConnonball);
-    };
+    }
 };
 
 var enemies = []
@@ -74,21 +61,6 @@ function Enemy() {
     };
 }
 
-function Connonball(tower) {
-
-    var aimedEnemy = enemies[tower.aimingEnemyId];
-
-    this.x = tower.x+16;
-    this.y = tower.y;
-    this.speed = 320;
-    this.damage = 5;
-    this.hitted = false;
-    this.direction = getUnitVector(this.x, this.y, aimedEnemy.x, aimedEnemy.y);
-    this.move = function(){
-        this.x += this.direction.x*this.speed/FPS;
-        this.y += this.direction.y*this.speed/FPS;
-    };
-}
 
 
 
@@ -160,7 +132,7 @@ function draw(){
 			ctx.drawImage( slimeImg, enemies[i].x, enemies[i].y);
 		}
 	}
-	Tower.searchEnemy();
+	tower.searchEnemy();
 	if ( tower.aimingEnemyId!=null ) {
 	  var id = tower.aimingEnemyId;
 	   ctx.drawImage( crosshairImg, enemies[id].x, enemies[id].y );
